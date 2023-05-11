@@ -32,17 +32,17 @@ form.addEventListener('submit', async (event) => {
     }
 
     const arrOfPersonsObj = await newGETtoReturnAllPersons()
-    printPersons(arrOfPersonsObj)
+    printPersonsToTable(arrOfPersonsObj)
 });
 
 window.onload = async () => {
     console.log('loaded');
     const arrOfPersonsObj = await newGETtoReturnAllPersons()
     console.log(arrOfPersonsObj);
-    printPersons(arrOfPersonsObj)
+    printPersonsToTable(arrOfPersonsObj)
 }
 
-function printPersons(arrOfPersonObj) {
+function printPersonsToTable(arrOfPersonObj) {
     const divElement = document.querySelector('.allPersons');
     let output = "<table>";
     output += "<tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Email</th><th>Action</th></tr>";
@@ -64,18 +64,16 @@ function printPersons(arrOfPersonObj) {
 }
 
 async function deletePerson(personId) {
-    // Implement delete functionality
     console.log("Delete person with ID:", personId);
-
     await fetch(`${baseUrl}/persons/${personId}`, { method: 'DELETE' })
-
     const persons = await newGETtoReturnAllPersons()
-    printPersons(persons)
+    printPersonsToTable(persons)
 }
 
 async function editPerson(personId) {
     // Implement edit functionality
     console.log("Edit person with ID:", personId);
+    
 }
 
 function getPersonById(id, arrOfPersonObj) {
