@@ -18,11 +18,12 @@ const persons = [
     },
     {
         "id": 2,
-        "name": "Mohamed",
-        "age": 25,
+        "name": "Ahmed2",
+        "age": 22,
         "gender": "male",
-        "email": "mohamed@gmail.com"
+        "email": "Ahmed2@gmail.com"
     }
+    
 ]
 
 app.use(cors());
