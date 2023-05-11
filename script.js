@@ -37,10 +37,7 @@ form.addEventListener('submit', async (event) => {
 
 window.onload = async () => {
     console.log('loaded');
-    const res = await fetch(`${baseUrl}/persons`, {
-        method: 'GET'
-    });
-    const arrOfPersonsObj = await res.json();
+    const arrOfPersonsObj = await newGETtoReturnAllPersons()
     console.log(arrOfPersonsObj);
     printPersons(arrOfPersonsObj)
 }
