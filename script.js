@@ -54,7 +54,7 @@ function printPersonsToTable(arrOfPersonObj) {
         output += "<td>" + arrOfPersonObj[i].email + "</td>";
         output += "<td>";
         output += "<button onclick='deletePerson(" + arrOfPersonObj[i].id + ")'>Delete</button>";
-        output += "<button onclick='editPerson(" + arrOfPersonObj[i].id + ")'>Edit</button>";
+        output += "<button onclick='handleEditPerson(" + arrOfPersonObj[i].id + ")'>Edit</button>";
         output += "</td>";
         output += "</tr>";
     }
@@ -72,6 +72,8 @@ async function editPerson(personId) {
     // Implement edit functionality
     console.log("Edit person with ID:", personId);
 
+    document.getPersonById('editArea').style.display = 'block';
+
     const theNewPersonObj = {
         id: personId,
         name: document.getElementById('editName').value,
@@ -80,7 +82,35 @@ async function editPerson(personId) {
         email: document.getElementById('editEmail').value
     }
 
-    // send a PUT request to the server with the updated person object
+
+    printPersonsToTable(await newGETtoReturnAllPersons())
+}
+
+async function handleEditPerson(personId) {
+    console.log("Edit person with ID:", personId);
+    // click on the edit button to make the form visible
+    document.getElementById('editArea').style.display = 'block';
+    // click on save edit button
+    document.getElementById('editSubmitBtn').addEventListener('click', async () => {
+        const theNewPersonObj = {
+            id: personId,
+            name: document.getElementById('editName').value,
+            age: document.getElementById('editAge').value,
+            gender: document.getElementById('editGender').value,
+            email: document.getElementById('editEmail').value
+        }
+
+        // send a PUT request to the server with the updated person object
+        await sendAPutRequestToTheServerWithTheUpdatedPerson(theNewPersonObj, personId)
+        printPersonsToTable(await newGETtoReturnAllPersons())
+        document.getElementById('editArea').style.display = 'none';
+
+    })
+
+
+}
+
+async function sendAPutRequestToTheServerWithTheUpdatedPerson(theNewPersonObj, personId) {
     await fetch(`${baseUrl}/persons/${personId}`, {
         method: "PUT",
         body: JSON.stringify(theNewPersonObj),
@@ -88,8 +118,6 @@ async function editPerson(personId) {
             "Content-Type": "application/json"
         }
     })
-
-    printPersonsToTable(await newGETtoReturnAllPersons())
 }
 
 
