@@ -21,10 +21,8 @@ form.addEventListener('submit', async (event) => {
         });
 
         if (response.ok) {
-            // handle success
             console.log('New person added to the server!');
         } else {
-            // handle error
             console.error('Failed to add new person to the server.');
         }
     } catch (error) {
@@ -35,10 +33,7 @@ form.addEventListener('submit', async (event) => {
 });
 
 window.onload = async () => {
-    console.log('loaded');
-    const arrOfPersonsObj = await newGETtoReturnAllPersons()
-    console.log(arrOfPersonsObj);
-    printPersonsToTable(arrOfPersonsObj)
+    printPersonsToTable(await newGETtoReturnAllPersons())
 }
 
 function printPersonsToTable(arrOfPersonObj) {
@@ -86,9 +81,7 @@ async function handleEditPerson(personId) {
         await sendAPutRequestToTheServerWithTheUpdatedPerson(theNewPersonObj, personId)
         printPersonsToTable(await newGETtoReturnAllPersons())
         document.getElementById('editArea').style.display = 'none';
-
     })
-
 
 }
 
@@ -100,16 +93,6 @@ async function sendAPutRequestToTheServerWithTheUpdatedPerson(theNewPersonObj, p
             "Content-Type": "application/json"
         }
     })
-}
-
-
-function getPersonById(id, arrOfPersonObj) {
-    for (let i = 0; i < arrOfPersonObj.length; i++) {
-        if (arrOfPersonObj[i].id === id) {
-            return arrOfPersonObj[i];
-        }
-    }
-    return null; // if person with given id is not found
 }
 
 async function newGETtoReturnAllPersons() {
