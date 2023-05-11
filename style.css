@@ -33,3 +33,19 @@ button:hover {
     background-color: #4f4b4b;
     color: #fff;
 }
+
+table {
+    /* a nice table */
+    border-collapse: collapse;
+    border: 1px solid #fff;
+    width: 100%;
+
+}
+
+th, td {
+    /* a nice table */
+    border: 1px solid #fff;
+    padding: 0.5rem;
+    text-align: left;
+    padding: 0.5rem;
+}
