@@ -51,9 +51,9 @@ window.onload = async () => {
 }
 
 function printPersons(arrOfPersonObj) {
-    const divElement = document.querySelector('.allPersons'); // replace "myDiv" with the ID of your div element
+    const divElement = document.querySelector('.allPersons');
     let output = "<table>";
-    output += "<tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Email</th></tr>";
+    output += "<tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Email</th><th>Action</th></tr>";
     for (let i = 0; i < arrOfPersonObj.length; i++) {
         output += "<tr>";
         output += "<td>" + arrOfPersonObj[i].id + "</td>";
@@ -61,10 +61,25 @@ function printPersons(arrOfPersonObj) {
         output += "<td>" + arrOfPersonObj[i].age + "</td>";
         output += "<td>" + arrOfPersonObj[i].gender + "</td>";
         output += "<td>" + arrOfPersonObj[i].email + "</td>";
+        output += "<td>";
+        output += "<button onclick='deletePerson(" + arrOfPersonObj[i].id + ")'>Delete</button>";
+        output += "<button onclick='editPerson(" + arrOfPersonObj[i].id + ")'>Edit</button>";
+        output += "</td>";
         output += "</tr>";
     }
     output += "</table>";
     divElement.innerHTML = output;
 }
+
+async function deletePerson(personId) {
+    // Implement delete functionality
+    console.log("Delete person with ID:", personId);
+}
+
+async function editPerson(personId) {
+    // Implement edit functionality
+    console.log("Edit person with ID:", personId);
+}
+
 
 
