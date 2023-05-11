@@ -34,10 +34,21 @@ app.post('/persons', (req, res) => {
     const id = globalId++
     const objectSent = req.body;
     const newPerson = { id, ...objectSent }
-    
+
     persons.push(newPerson)
     console.log('the new person ', newPerson);
     res.send("Added Success")
+})
+
+app.delete('/persons/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    const index = persons.findIndex(p => p.id === id)
+    if (index !== -1) {
+        persons.splice(index, 1)
+        res.send("Deleted Success")
+    } else {
+        res.send('Person not found')
+    }
 })
 
 app.listen(port, () => {

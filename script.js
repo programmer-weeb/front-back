@@ -19,7 +19,7 @@ form.addEventListener('submit', async (event) => {
             },
             body: JSON.stringify({ name, age, gender, email })
         });
-        
+
         if (response.ok) {
             // handle success
             console.log('New person added to the server!');
@@ -34,7 +34,7 @@ form.addEventListener('submit', async (event) => {
     // reload the page
     // window.location.reload();
 
-    const res = await fetch (`${baseUrl}/persons`, { method: 'GET' });
+    const res = await fetch(`${baseUrl}/persons`, { method: 'GET' });
     const arrOfPersonsObj = await res.json();
 
     printPersons(arrOfPersonsObj)
@@ -74,6 +74,12 @@ function printPersons(arrOfPersonObj) {
 async function deletePerson(personId) {
     // Implement delete functionality
     console.log("Delete person with ID:", personId);
+
+    await fetch(`${baseUrl}/persons/${personId}`, { method: 'DELETE' })
+
+    const persons = await newGETtoReturnAllPersons()
+
+    printPersons(persons)
 }
 
 async function editPerson(personId) {
@@ -81,5 +87,19 @@ async function editPerson(personId) {
     console.log("Edit person with ID:", personId);
 }
 
+function getPersonById(id, arrOfPersonObj) {
+    for (let i = 0; i < arrOfPersonObj.length; i++) {
+        if (arrOfPersonObj[i].id === id) {
+            return arrOfPersonObj[i];
+        }
+    }
+    return null; // if person with given id is not found
+}
 
-
+async function newGETtoReturnAllPersons() {
+    const res = await fetch(`${baseUrl}/persons`, {
+        method: 'GET'
+    });
+    const arrOfPersonsObj = await res.json();
+    return arrOfPersonsObj;
+}
