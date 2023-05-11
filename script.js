@@ -68,24 +68,6 @@ async function deletePerson(personId) {
     printPersonsToTable(await newGETtoReturnAllPersons())
 }
 
-async function editPerson(personId) {
-    // Implement edit functionality
-    console.log("Edit person with ID:", personId);
-
-    document.getPersonById('editArea').style.display = 'block';
-
-    const theNewPersonObj = {
-        id: personId,
-        name: document.getElementById('editName').value,
-        age: document.getElementById('editAge').value,
-        gender: document.getElementById('editGender').value,
-        email: document.getElementById('editEmail').value
-    }
-
-
-    printPersonsToTable(await newGETtoReturnAllPersons())
-}
-
 async function handleEditPerson(personId) {
     console.log("Edit person with ID:", personId);
     // click on the edit button to make the form visible
