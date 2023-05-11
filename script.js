@@ -31,8 +31,7 @@ form.addEventListener('submit', async (event) => {
         console.error(error);
     }
 
-    const arrOfPersonsObj = await newGETtoReturnAllPersons()
-    printPersonsToTable(arrOfPersonsObj)
+    printPersonsToTable(await newGETtoReturnAllPersons())
 });
 
 window.onload = async () => {
@@ -66,15 +65,33 @@ function printPersonsToTable(arrOfPersonObj) {
 async function deletePerson(personId) {
     console.log("Delete person with ID:", personId);
     await fetch(`${baseUrl}/persons/${personId}`, { method: 'DELETE' })
-    const persons = await newGETtoReturnAllPersons()
-    printPersonsToTable(persons)
+    printPersonsToTable(await newGETtoReturnAllPersons())
 }
 
 async function editPerson(personId) {
     // Implement edit functionality
     console.log("Edit person with ID:", personId);
-    
+
+    const theNewPersonObj = {
+        id: personId,
+        name: document.getElementById('editName').value,
+        age: document.getElementById('editAge').value,
+        gender: document.getElementById('editGender').value,
+        email: document.getElementById('editEmail').value
+    }
+
+    // send a PUT request to the server with the updated person object
+    await fetch(`${baseUrl}/persons/${personId}`, {
+        method: "PUT",
+        body: JSON.stringify(theNewPersonObj),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    printPersonsToTable(await newGETtoReturnAllPersons())
 }
+
 
 function getPersonById(id, arrOfPersonObj) {
     for (let i = 0; i < arrOfPersonObj.length; i++) {
