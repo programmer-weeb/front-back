@@ -40,6 +40,21 @@ app.post('/persons', (req, res) => {
     res.send("Added Success")
 })
 
+app.put('/persons/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    const person = persons.find(p => p.id === id)
+    if (person) {
+        const { name, age, gender, email } = req.body
+        person.name = name || person.name
+        person.age = age || person.age
+        person.gender = gender || person.gender
+        person.email = email || person.email
+        res.send("Updated Success")
+    } else {
+        res.send('Person not found')
+    }
+})
+
 app.delete('/persons/:id', (req, res) => {
     const id = parseInt(req.params.id)
     const index = persons.findIndex(p => p.id === id)

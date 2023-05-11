@@ -31,12 +31,7 @@ form.addEventListener('submit', async (event) => {
         console.error(error);
     }
 
-    // reload the page
-    // window.location.reload();
-
-    const res = await fetch(`${baseUrl}/persons`, { method: 'GET' });
-    const arrOfPersonsObj = await res.json();
-
+    const arrOfPersonsObj = await newGETtoReturnAllPersons()
     printPersons(arrOfPersonsObj)
 });
 
@@ -78,7 +73,6 @@ async function deletePerson(personId) {
     await fetch(`${baseUrl}/persons/${personId}`, { method: 'DELETE' })
 
     const persons = await newGETtoReturnAllPersons()
-
     printPersons(persons)
 }
 
