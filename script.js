@@ -65,25 +65,37 @@ async function deletePerson(personId) {
 
 async function handleEditPerson(personId) {
     console.log("Edit person with ID:", personId);
-    // click on the edit button to make the form visible
+
+    // show the edit form
     document.getElementById('editArea').style.display = 'block';
-    // click on save edit button
-    document.getElementById('editSubmitBtn').addEventListener('click', async () => {
-        const theNewPersonObj = {
-            id: personId,
+
+    // clear the form
+    document.getElementById('editName').value = '';
+    document.getElementById('editAge').value = '';
+    document.getElementById('editGender').value = '';
+    document.getElementById('editEmail').value = '';
+
+    // add event listener to "Save Edit" button
+    const saveEditBtn = document.getElementById('editSubmitBtn');
+    const theEventListenerFunction = async () => {
+        let theNewPersonObj = {
             name: document.getElementById('editName').value,
             age: document.getElementById('editAge').value,
             gender: document.getElementById('editGender').value,
             email: document.getElementById('editEmail').value
         }
-
-        // send a PUT request to the server with the updated person object
-        await sendAPutRequestToTheServerWithTheUpdatedPerson(theNewPersonObj, personId)
-        printPersonsToTable(await newGETtoReturnAllPersons())
+        // send a PUT request to update the person
+        await sendAPutRequestToTheServerWithTheUpdatedPerson(theNewPersonObj, personId);
+        // update the table
+        printPersonsToTable(await newGETtoReturnAllPersons());
+        // hide the edit form
         document.getElementById('editArea').style.display = 'none';
-    })
-
+        // remove the event listener
+        saveEditBtn.removeEventListener('click', theEventListenerFunction);
+    };
+    saveEditBtn.addEventListener('click', theEventListenerFunction);
 }
+
 
 async function sendAPutRequestToTheServerWithTheUpdatedPerson(theNewPersonObj, personId) {
     await fetch(`${baseUrl}/persons/${personId}`, {
