@@ -1,4 +1,4 @@
-![image](https://github.com/programmer-weeb/front-back/assets/84931803/711181b5-cbce-451c-8912-49894961df21) ![image](https://github.com/programmer-weeb/front-back/assets/84931803/dafc1f6a-73d3-4c9a-97c9-a6733f44ad89)
+![image](https://github.com/programmer-weeb/front-back/assets/84931803/711181b5-cbce-451c-8912-49894961df21) ![image](https://github.com/programmer-weeb/front-back/assets/84931803/dafc1f6a-73d3-4c9a-97c9-a6733f44ad89) ![image](https://github.com/programmer-weeb/front-back/assets/84931803/e30dc442-d037-4049-8e89-78fa2455e34e)
 
 
 in the root dir of the project write => `docker-compose up --build`
